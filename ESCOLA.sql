@@ -1,0 +1,57 @@
+CREATE DATABASE atv_escola;
+USE atv_escola;
+
+CREATE TABLE ALUNO (
+    ID_ALUNO INT AUTO_INCREMENT  PRIMARY KEY,
+    NOME VARCHAR(100),
+    SERIE INT,
+    EMAIL VARCHAR(100)
+);
+
+CREATE TABLE PROFESSORES (
+    ID_PROFESSORES INT AUTO_INCREMENT PRIMARY KEY,
+    NOME VARCHAR(100),
+    MATERIA VARCHAR(100),
+    EMAIL VARCHAR(100)
+);
+
+CREATE TABLE CURSO (
+    ID_CURSO  INT AUTO_INCREMENT  PRIMARY KEY,
+    MATERIA VARCHAR(100),
+    PROFESSOR VARCHAR(100),
+    ID_PROFESSOR INT,
+    FOREIGN KEY (ID_PROFESSOR) REFERENCES PROFESSORES(ID_PROFESSORES)
+);
+
+CREATE TABLE ALUNOCURSO (
+    ID_ALUNOCURSO INT AUTO_INCREMENT PRIMARY KEY,
+    SEMESTRE VARCHAR(50),
+    ID_ALUNO INT,
+    ID_CURSO INT,
+    FOREIGN KEY (ID_ALUNO) REFERENCES ALUNO(ID_ALUNO),
+    FOREIGN KEY (ID_CURSO) REFERENCES CURSO(ID_CURSO)
+);
+USE atv_escola;
+
+INSERT INTO aluno (NOME, SERIE, EMAIL) VALUES
+('João Silva', 1, 'joao@email.com'),
+('Maria Santos', 2, 'maria@email.com'),
+('Carlos Oliveira', 3, 'carlos@email.com');
+
+INSERT INTO PROFESSORES (NOME, MATERIA, EMAIL) VALUES
+('Ana Souza', 'Matemática', 'ana@email.com'),
+('Pedro Costa', 'Português', 'pedro@email.com'),
+('Mariana Lima', 'História', 'mariana@email.com');
+
+INSERT INTO CURSO 
+(MATERIA, PROFESSOR, ID_PROFESSOR) VALUES
+('Matemática', 'Ana Souza', 1),
+('Português', 'Pedro Costa', 2),
+('História', 'Mariana Lima', 3);
+
+INSERT INTO ALUNOCURSO 
+(ID_ALUNO, ID_CURSO, SEMESTRE) VALUES
+(1, 1, '1º Semestre'),
+(2, 2, '1º Semestre'),
+(3, 3, '2º Semestre'),
+(1, 2, '2º Semestre');
